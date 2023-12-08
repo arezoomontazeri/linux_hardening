@@ -13,5 +13,8 @@
 
 - name: Give insecure permissions to an existing file
   import_tasks:
-      -permission.yml
+     - permission.yml
 
+- name: add module to kernel
+  import_tasks: 
+      - grub.yml

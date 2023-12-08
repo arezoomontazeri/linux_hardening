@@ -1,0 +1,11 @@
+---
+- name: add to cmdLine
+  vars:
+    param: "ipv6.disabled=1"
+  shell: sed -i '\*^GRUB_CMDLINE_LINUX=* s*"$* '"{{ param }}"'"*' /etc/default/grub
+
+- name: add line to grub
+  lineinfile:
+    path: /etc/default/grub
+    state: present
+    line: 'GRUB-DISABLE-RECOVERY = true'
