@@ -1,0 +1,7 @@
+---
+- name: rsyslog configs | adding log server addressing
+  lineinfile:
+    path: /etc/rsyslog.conf
+    state: present
+    line: "*.* @{{ syslog_server_ip }}:{{ syslog_server_port }}"
+    backup: yes
