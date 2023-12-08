@@ -6,3 +6,12 @@
 - name: sysctl tasks
   import_tasks:
     - sysctl.yml
+
+- name: add banner
+  import_tasks:
+     - banner.yml
+
+- name: Give insecure permissions to an existing file
+  import_tasks:
+      -permission.yml
+

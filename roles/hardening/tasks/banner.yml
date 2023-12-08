@@ -1,0 +1,11 @@
+---
+- name: add banner
+  template:
+    src: issue.net.j2
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - /etc/issue.net
+    - /etc/issue
