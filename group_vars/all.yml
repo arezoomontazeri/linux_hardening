@@ -1,3 +1,34 @@
 ---
 syslog_server_ip: ""
 syslog_server_port: 9992
+
+
+
+
+#sysctl_parameters
+net_ipv4_ip_forward: 0
+net_ipv4_conf_default_accept_source_route: 0
+kernel_sysrq: 0
+kernel_core_uses_pid: 1
+net_ipv4_tcp_syncookies: 1
+net_ipv4_tcp_synack_retries: 5
+
+#sysctl_parameters_ipv4_networking
+net_ipv4_conf_all_send_redirects: 0
+net_ipv4_conf_default_send_redirects: 0
+net_ipv4_conf_all_accept_source_route: 0 
+net_ipv4_conf_all_accept_redirects: 0 
+net_ipv4_conf_all_log_martians: 1 
+net_ipv4_conf_default_secure_redirects: 0 
+net_ipv4_icmp_echo_ignore_broadcasts: 1 
+net_ipv4_icmp_ignore_bogus_error_responses: 1 
+net_ipv4_conf_all_rp_filter: 1 
+net_ipv4_conf_default_rp_filter: 1
+
+#sysctl_parameters_ipv6_networking
+net_ipv6_conf_default_router_solicitations: 0
+net_ipv6_conf_default_accept_ra_rtr_pref: 0
+net_ipv6_conf_default_accept_ra_pinfo: 0
+net_ipv6_conf_default_autoconf: 0
+net_ipv6_conf_default_dad_transmits: 0
+net_ipv6_conf_default_max_addresses: 1

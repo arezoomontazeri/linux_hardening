@@ -1,0 +1,9 @@
+---
+- name: system hardening
+  become: true
+  hosts: all
+  roles:
+    - { 
+      role: hardening,
+      tags: hardening 
+      }
