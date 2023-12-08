@@ -1,2 +1,62 @@
 ---
-# tasks file for hardening
+- name: rsyslog configs | adding log server addressing
+  lineinfile:
+    path: /etc/rsyslog.conf
+    state: present
+    line: "*.* @{{ syslog_server_ip }}:{{ syslog_server_port }}"
+    backup: yes
+
+- name: sysctl configs | adding ipv4 related parameters
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state }}"
+    sysctl_file: /etc/sysctl.conf
+  loop:
+  # sysctl net.ipv4.ip_forward
+    - { name: net.ipv4.ip_forward, value: 0, state: present }
+  # Do not accept source routing
+    - { name: net.ipv4.conf.default.accept_source_route, value: 0, state: present }
+  # Controls the System Request debugging functionality of the kernel
+    - { name: kernel.sysrq, value: 0, state: present }
+  # Controls whether core dumps will append the PID to the core filename
+  # Useful for debugging multi-threaded applicatio
+    - { name: kernel.core_uses_pid, value: 1, state: present }
+  # Controls the use of TCP syncookies
+  # Turn on SYN-flood protections
+    - { name: net.ipv4.tcp_syncookies, value: 1, state: present }
+    - { name: net.ipv4.tcp_synack_retries, value: 5, state: present }
+
+- name: sysctl config | adding ipv4 networking parameters
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state }}"
+    sysctl_file: /etc/sysctl.conf
+  loop:
+    - { name: net.ipv4.conf.all.send_redirects, value: 0, state: present, description: "net_ip" } 
+    - { name: net.ipv4.conf.default.send_redirects, value: 0, state: present } 
+    - { name: net.ipv4.conf.all.accept_source_route, value: 0, state: present } 
+    - { name: net.ipv4.conf.all.accept_redirects, value: 0, state: present } 
+    - { name: net.ipv4.conf.all.log_martians, value: 1, state: present } 
+    - { name: net.ipv4.conf.default.accept_source_route, value: 0, state: present }
+    - { name: net.ipv4.conf.all.accept_redirects, value: 0, state: present } 
+    - { name: net.ipv4.conf.default.secure_redirects, value: 0, state: present } 
+    - { name: net.ipv4.icmp_echo_ignore_broadcasts, value: 1, state: present } 
+    - { name: net.ipv4.icmp_ignore_bogus_error_responses, value: 1, state: present } 
+    - { name: net.ipv4.tcp_syncookies, value: 1, state: present } 
+    - { name: net.ipv4.conf.all.rp_filter, value: 1, state: present } 
+    - { name: net.ipv4.conf.default.rp_filter, value: 1, state: present } 
+- name: sysctl config | adding ipv6 networking
+  sysctl_file:  
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state }}"
+    sysctl_file: /etc/sysctl.conf
+  loop:
+    - { name: net.ipv6.conf.default.router_solicitations, value: 0, state: present, description: "This is host and not router"}
+    - { name: net.ipv6.conf.default.accept_ra_rtr_pref, value: 0, state: present, description:"Accept Router Preference in RA?" }
+    - { name: net.ipv6.conf.default.accept_ra_pinfo, value: 0, state: present, description:"Setting controls whether the system will accept Hop Limit settings from a router advertisement" }
+    - { name: net.ipv6.conf.default.autoconf, value: 0, state: present, description:"router advertisements can cause the system to assign a global unicast address to an interface" }
+    - { name: net.ipv6.conf.default.dad_transmits, value: 0, state: present, description:"how many neighbor solicitations to send out per address?" }
+    - { name: net.ipv6.conf.default.dad_transmits, value: 1, state: present, description:"How many global unicast IPv6 addresses can be assigned to each interface?" }
