@@ -3,7 +3,7 @@
     name: audit
     state: present 
 
-- name: Ensure auditd service is up and running S
+- name: Ensure auditd service is up and running 
   ansible.builtin.service:
     name: auditd
     state: started 
@@ -20,3 +20,4 @@
   - name: reboot_host
     ansible.builtin.reboot:
       reboot_timout: 360
+ 

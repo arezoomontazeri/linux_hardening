@@ -7,7 +7,7 @@
       group: "{{ item.group }}"
   loop: 
   - { path: "/boot/grub/grub.cfg", mode:  o-wx }
-  - { path: "/etc/issue", mode: go-rwx }
+  - { path: "/etc/issue", mode: go-rwx } 
   - { path: "/etc/issue.net", mode: go-rwx }
   - { path: "/etc/motd", mode: go-rwx }
   - { path: "/etc/cron.d", mode: go-rwx }
