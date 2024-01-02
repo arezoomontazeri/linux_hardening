@@ -1,0 +1,9 @@
+- name: Ensure fstab uses nodev
+  mount:
+    name: "{{ item.mount }}"
+    src: "{{ item.device }}"
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.options }},nodev"
+    state: present
+  with_items: ansible_mounts
+  when: item.options.find(",") >= 0 and item.options.find("nodev") == -1
