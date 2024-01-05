@@ -30,8 +30,9 @@
     - { name: net.ipv4.icmp_ignore_bogus_error_responses, value: "{{ net_ipv4_icmp_ignore_bogus_error_responses }}", state: present } 
     - { name: net.ipv4.conf.all.rp_filter, value: "{{ net_ipv4_conf_all_rp_filter }}", state: present } 
     - { name: net.ipv4.conf.default.rp_filter, value: "{{ net_ipv4_conf_default_rp_filter }}", state: present } 
+
 - name: sysctl config | adding ipv6 networking
-  sysctl_file:  
+  sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
     state: "{{ item.state }}"
