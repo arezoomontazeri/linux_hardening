@@ -1,7 +1,8 @@
 ---
 - name: system hardening
   become: true
-  hosts: all
+  hosts: localhost
+  check_mode: true
   roles:
     - { 
       role: hardening,
