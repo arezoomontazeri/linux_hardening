@@ -1,4 +1,4 @@
-
+---
 - name: Change file ownership, group and permissions
   ansible.builtin.file:
       path: "{{ item.path }}"
@@ -6,36 +6,31 @@
       owner: "{{ item.owner }}"
       group: "{{ item.group }}"
   loop: 
-  - { path: "/boot/grub/grub.cfg", mode:  o-wx }
-  - { path: "/etc/issue", mode: go-rwx } 
-  - { path: "/etc/issue.net", mode: go-rwx }
-  - { path: "/etc/motd", mode: go-rwx }
-  - { path: "/etc/cron.d", mode: go-rwx }
-  - { path: "/etc/cron.daily", mode: go-rwx }
-  - { path: "/etc/cron.deny", mode: go-rwx }
-  - { path: "/etc/cron.hourly", mode: go-rwx }
-  - { path: "/etc/cron.monthly", mode: go-rwx }
-  - { path: "/etc/cron.weekly", mode: go-rwx }
-  - { path: "/etc/ssh_private_host_key", mode: go-rwx }
-  - { path: "/etc/ssh/sshd_config", mode: go-rwx }
-  - { path: "/etc/crontab", mode: go-rwx }
-  - { path: "/etc/cron.allow", mode: go-rwx }
-  - { path: "/etc/at.allow", mode: go-rwx }
-  - { path: "/etc/ssh/sshd_config", mode: go-rwx }
-  - { path: "/etc/passwd", mode: 644 }
-  - { path: "/etc/shadow", mode: 644 }
-  - { path: "/etc/group", mode: u-x,g-wx,o-wx }
+    
+    - { path: "/etc/cron.d", mode: go-rwx,  owner: root , group: root }
+    - { path: "/etc/cron.daily", mode: go-rwx, owner: root , group: root}
+    
+    - { path: "/etc/cron.hourly", mode: go-rwx, owner: root , group: root }
+    - { path: "/etc/cron.monthly", mode: go-rwx , owner: root , group: root }
+    - { path: "/etc/cron.weekly", mode: go-rwx, owner: root , group: root }
+    
+    - { path: "/etc/crontab", mode: go-rwx , owner: root , group: root  }
+    # - { path: "/etc/cron.allow", mode: go-rwx, owner: root , group: root }
+   # - { path: "/etc/at.allow", mode: go-rwx, owner: root , group: root  }
+    - { path: "/etc/ssh/sshd_config", mode: go-rwx , owner: root , group: root}
+    - { path: "/etc/passwd", mode: 644, owner: root , group: root}
+    - { path: "/etc/shadow", mode: 644 , owner: root , group: root}
+    - { path: "/etc/group", mode: u-x,g-wx,o-wx, owner: root, group: root }
+    
+- name: Change mode file ownership, group and permissions
+  ansible.builtin.file:
+      path: "{{ item.path }}"
+      mode: "{{ item.mode }}"
   
-  - {  path: " /etc/ssh/sshd_config ", owner: root, group: root }
-  - {  path: " /etc/crontab ", owner: root , group: root }
-  - {  path: " /etc/cron.hourly ", owner: root , group: root }
-  - {  path: " /etc/cron.daily ", owner: root , group: root }
-  - {  path: " /etc/cron.weekly ", owner: root , group: root }
-  - {  path: " /etc/cron.monthly ", owner: root , group: root }
-  - {  path: " /etc/cron.d ", owner: root , group: root }
-  - {  path: " /etc/cron.allow ", owner: root , group: root }
-  - {  path: " /etc/at.allow ", owner: root , group: root }
-  - {  path: " /etc/ssh/sshd_config ", owner: root , group: root }
-  - {  path: " /etc/passwd ", owner: root , group: root }
-  - {  path: " /etc/shadow ", owner: root , group: root }
-  - {  path: " /etc/group ", owner: root , group: root }
+  loop:
+    -  { path: "/boot/grub/grub.cfg", mode:  o-wx }
+    - { path: "/etc/issue", mode: go-rwx } 
+    - { path: "/etc/issue.net", mode: go-rwx }
+  #  - { path: "/etc/motd", mode: go-rwx }
+   # - { path: "/etc/cron.deny", mode: go-rwx }
+   # - { path: "/etc/ssh_private_host_key", mode: go-rwx }
