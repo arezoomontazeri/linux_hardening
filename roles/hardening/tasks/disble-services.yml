@@ -1,0 +1,27 @@
+# - name: delete telnet service
+#   vars:
+#     os_family: "{% if ansible_fact.os == ubuntu %}apt{% elseif ansible_fact.os == redhat %}rpm{% else %}apt{% endif %}"
+# - name: Allow python to be upgraded
+#   ansible.builtin.dpkg_selections:
+#     name: python
+#     selection: install
+# - name: Remove packages foo and bar
+#   community.general.apt_rpm:
+#     pkg: telnet*,avahi,cups,xorg-x11-server*
+#     state: absent
+
+
+
+- name: delete required services 
+  block:
+    - name: delete ubuntu pkgs
+      ansible.builtin.apt: ""
+      when: "{{ ansible_fact.os }} == debian"
+    - name: delete redhat pkgs
+      yum: ""
+      when: "{{ ansible_fact.os }} == redhat"
+  items:
+    - telnet*
+    - avahi
+    - cups
+  
