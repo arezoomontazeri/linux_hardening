@@ -1,20 +1,21 @@
----
-- name: rsyslog tasks
-  import_tasks:
-    - rsyslog.yml
+- include_tasks: rsyslog.yml
 
-- name: sysctl tasks
-  import_tasks:
-    - sysctl.yml
+- include_tasks: sysctl.yml
 
-- name: add banner
-  import_tasks:
-     - banner.yml
-
-- name: Give insecure permissions to an existing file
-  import_tasks:
-     - permission.yml
-
-- name: add module to kernel
-  import_tasks: 
-      - grub.yml
+# - name: sysctl tasks
+#   import_tasks:
+#   - sysctl.yml
+- include_tasks: banner.yml
+# - name: add banner
+#   import_tasks:
+#   - banner.yml
+- include_tasks: permission.yml
+# - name: Give insecure permissions to an existing file
+#   import_tasks:
+#   - permission.yml
+- include_tasks: grub.yml
+# - name: add module to kernel
+#   import_tasks: 
+#   - grub.yml
+- include_tasks: audit.yml
+- include_tasks: disable_services.yml
