@@ -1,5 +1,5 @@
 ---
-syslog_server_ip: ""
+syslog_server_ip: "1.1.1.1"
 syslog_server_port: 9992
 
 
