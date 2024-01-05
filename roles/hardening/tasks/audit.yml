@@ -1,6 +1,6 @@
 - name: Ensure audit package is installed
   ansible.builtin.apt:
-    name: audit
+    name: auditd
     state: present 
 
 - name: Ensure auditd service is up and running 
@@ -15,9 +15,9 @@
      owner: root 
      group: root 
      mode: 0600
-  notify: reboot_host
-  handlers:
-  - name: reboot_host
-    ansible.builtin.reboot:
-      reboot_timout: 360
+ # notify: reboot_host
+ # handlers:
+ # - name: reboot_host
+ #   ansible.builtin.reboot:
+ #     reboot_timout: 360
  
