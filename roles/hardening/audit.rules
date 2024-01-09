@@ -7,8 +7,7 @@
 
 ## Set failure mode to syslog
 -f 1
-## audit configuration is immutable
--e 2
+
 
 ########### # auditctl -w /etc/passwd -p war -k password-file
 #    -w /etc/passwd : Insert a watch for the file system object at given path i.e. watch file called /etc/passwd
@@ -22,6 +21,7 @@
 -w /etc/passwd -p wa -k identity
 -w /etc/gshadow -p wa -k identity
 -w /etc/shadow -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
 -w /etc/issue -p wa -k system-locale
 -w /etc/issue.net -p wa -k system-locale
 -w /etc/hosts -p wa -k system-locale
